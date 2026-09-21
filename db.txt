@@ -1,0 +1,26 @@
+use fastapi_sqlalchemy_crud_db;
+
+CREATE TABLE brands (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name varchar(100),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE categories (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name varchar(100),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE products (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name varchar(100),
+  brand_id int(4) not null,
+  category_id int(4) not null,
+  image text,
+  qty int(11) default 0,
+  price double,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_product_brand FOREIGN KEY (brand_id)  REFERENCES brands(id) ON DELETE restrict ON UPDATE cascade,
+  CONSTRAINT fk_product_category FOREIGN KEY (category_id)  REFERENCES categories(id) ON DELETE restrict ON UPDATE cascade
+);
